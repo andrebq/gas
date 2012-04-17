@@ -1,6 +1,6 @@
 #GAS
 
-GAS (*G*opath *AS*sets) is a lib to load resources (images, text, videos, templates, etc...) using GOPATH.
+GAS (Gopath ASsets) is a lib to load resources (images, text, videos, templates, etc...) using GOPATH.
 
 #Installing
 
@@ -8,7 +8,7 @@ GAS (*G*opath *AS*sets) is a lib to load resources (images, text, videos, templa
 
 #Using
 
-	file, err := gas.Read("import/path/to/file.png")
+	file, err := gas.Open("import/path/to/file.png")
 	// This is similar to os.Open but it search the GOPATH variable for possible locations
 	// the first one to match is used
 	//
