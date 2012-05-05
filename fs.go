@@ -23,15 +23,21 @@ func (n NotFound) Error() string {
 //
 // The returned string is OS depended. If the desired file isn't present
 // in any possible location returns NotFound error.
-func (fs *FS) Abs(file string) (abs string, err error) {
+func (fs *FS) Abs(file string, allowDir bool) (abs string, err error) {
 	reqPath := filepath.FromSlash(path.Clean(file))
 
 	for _, p := range fs.searchPath {
 		abs = filepath.Join(p, "src", reqPath)
 		var stat os.FileInfo
 		stat, err = os.Stat(abs)
-		if !os.IsNotExist(err) && !stat.IsDir() {
-			return
+		if !os.IsNotExist(err) {
+			if !stat.IsDir() {
+				return
+			} else if allowDir {
+				// in case the caller want's a directory
+				// instead of a file
+				return
+			}
 		}
 	}
 	// if reach this point
@@ -44,7 +50,7 @@ func (fs *FS) Abs(file string) (abs string, err error) {
 
 // Open the resource for reading
 func (fs *FS) Open(file string) (r io.ReadCloser, err error) {
-	abs, err := fs.Abs(file)
+	abs, err := fs.Abs(file, false)
 	if err != nil {
 		return
 	}

@@ -34,5 +34,5 @@ func Open(file string) (io.ReadCloser, error) {
 func Abs(file string) (string, error) {
 	lock.RLock()
 	defer lock.RUnlock()
-	return fs.Abs(file)
+	return fs.Abs(file, true)
 }
