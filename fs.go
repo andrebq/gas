@@ -71,3 +71,11 @@ func GopathFS() *FS {
 	}
 	return fs
 }
+
+// Create a FS which is the combination of the GopathFS and the current folder
+// note that the current folder don't require the "src" sub-folder
+func UnitedFS() *FS {
+	gofs := GopathFS()
+	gofs.searchPath = append(gofs.searchPath, ".")
+	return gofs
+}

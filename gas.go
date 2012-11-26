@@ -10,15 +10,16 @@ var (
 	lock sync.RWMutex
 )
 
+// Initialize the code using the default (UnitedFS)
 func init() {
-	fs = GopathFS()
+	fs = UnitedFS()
 }
 
-// Refresh the internal FS to reflect possible changes in the GOPATH env variable
+// Refresh the internal FS to reflect possible changes in the UnitedFS
 func Refresh() {
 	lock.Lock()
 	defer lock.Unlock()
-	fs = GopathFS()
+	fs = UnitedFS()
 }
 
 // Open the file for reading or returns an error
