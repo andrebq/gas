@@ -27,7 +27,7 @@ func (fs *FS) Abs(file string, allowDir bool) (abs string, err error) {
 	reqPath := filepath.FromSlash(path.Clean(file))
 
 	for _, p := range fs.searchPath {
-		abs = filepath.Join(p, "src", reqPath)
+		abs = filepath.Join(p, reqPath)
 		var stat os.FileInfo
 		stat, err = os.Stat(abs)
 		if !os.IsNotExist(err) {
@@ -62,6 +62,12 @@ func (fs *FS) Open(file string) (r io.ReadCloser, err error) {
 // Create a new GopathFS instance
 func GopathFS() *FS {
 	fs := &FS{}
-	fs.searchPath = strings.Split(os.Getenv("GOPATH"), ":")
+	vals := strings.Split(os.Getenv("GOPATH"), ":")
+	if len(vals) > 0 {
+		fs.searchPath = make([]string, len(vals))
+		for i, v := range vals {
+			fs.searchPath[i] = filepath.Join(filepath.FromSlash(v), "src")
+		}
+	}
 	return fs
 }
