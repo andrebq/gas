@@ -31,7 +31,7 @@ func Open(file string) (io.ReadCloser, error) {
 	return fs.Open(file)
 }
 
-// Return the absolut filepath for the requested resource or return an error if not found
+// Return the absolute filepath for the requested resource or return an error if not found
 func Abs(file string) (string, error) {
 	lock.RLock()
 	defer lock.RUnlock()
