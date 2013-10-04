@@ -6,5 +6,5 @@ import (
 )
 
 func gopathDirs() []string {
-	return strings.Split(os.Getenv("GOPATH"), ":")
+	return strings.Split(os.Getenv("GOPATH"), ";")
 }
