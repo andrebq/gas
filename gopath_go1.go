@@ -9,5 +9,5 @@ import (
 )
 
 func gopathDirs() []string {
-	return strings.Split(build.Default.GOPATH, os.PathListSeparator)
+	return strings.Split(build.Default.GOPATH, string(os.PathListSeparator))
 }
