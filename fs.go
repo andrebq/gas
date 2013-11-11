@@ -5,7 +5,6 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"strings"
 )
 
 type FS struct {
@@ -62,7 +61,7 @@ func (fs *FS) Open(file string) (r io.ReadCloser, err error) {
 // Create a new GopathFS instance
 func GopathFS() *FS {
 	fs := &FS{}
-	vals := strings.Split(os.Getenv("GOPATH"), string(os.PathListSeparator))
+	vals := filepath.SplitList(os.Getenv("GOPATH"))
 	if len(vals) > 0 {
 		fs.searchPath = make([]string, len(vals))
 		for i, v := range vals {
