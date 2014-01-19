@@ -1,4 +1,4 @@
-// +build go1.1
+// +build go1.1 go1.2
 
 package gas
 
