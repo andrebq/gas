@@ -2,6 +2,7 @@ package gas
 
 import (
 	"io"
+	"io/ioutil"
 	"sync"
 )
 
@@ -36,4 +37,14 @@ func Abs(file string) (string, error) {
 	lock.RLock()
 	defer lock.RUnlock()
 	return fs.Abs(file, true)
+}
+
+// ReadFile return the contents of the file at the given gopath
+func ReadFile(file string) ([]byte, error) {
+	rc, err := Open(file)
+	if err != nil {
+		return nil, err
+	}
+	defer rc.Close()
+	return ioutil.ReadAll(rc)
 }

@@ -15,6 +15,14 @@ func TestGlobalOpen(t *testing.T) {
 		t.Fatalf("Error while closing the file. %v", err)
 	}
 
+	buf, err := ReadFile("github.com/andrebq/gas/fs.go")
+	if err != nil {
+		t.Fatalf("Error while reading file contents. %v", err)
+	}
+	if len(buf) == 0 {
+		t.Fatalf("Invalid content length")
+	}
+
 	Refresh()
 
 	file, err = Open("github.com/andrebq/gas/fs.go")
