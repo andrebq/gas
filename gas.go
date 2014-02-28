@@ -39,6 +39,16 @@ func Abs(file string) (string, error) {
 	return fs.Abs(file, true)
 }
 
+// MustAbs ensure that the given file is present in the system, if the file can't
+// be found, this will call panic giving the reason
+func MustAbs(file string) string {
+	ret, err := Abs(file)
+	if err != nil {
+		panic(ret)
+	}
+	return ret
+}
+
 // ReadFile return the contents of the file at the given gopath
 func ReadFile(file string) ([]byte, error) {
 	rc, err := Open(file)
