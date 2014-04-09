@@ -78,3 +78,14 @@ func UnitedFS() *FS {
 	gofs.searchPath = append(gofs.searchPath, ".")
 	return gofs
 }
+
+// FromDirs return a new filesystem that searchs for the request file
+// on the specified dirs
+//
+// This make a copy of the input array
+func FromDirs(dirs []string) *FS {
+	fs := &FS{}
+	fs.searchPath = make([]string, len(dirs))
+	copy(fs.searchPath, dirs)
+	return fs
+}

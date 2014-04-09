@@ -93,3 +93,20 @@ func TestOpen(t *testing.T) {
 	}
 	file.Close()
 }
+
+func TestFromDirs(t *testing.T) {
+	ufs := UnitedFS()
+	gasDir, err := ufs.Abs("github.com/gas", true)
+
+	dirfs := FromDirs([]string{gasDir})
+
+	// since I added github.com/gas as a directory using
+	// unitedfs
+	// the dirfs should be able to find the fs.go file
+	// without any prefix
+	file, err := dirfs.Open("fs.go")
+	if err != nil {
+		t.Fatalf("should have found the fs.go file")
+	}
+	defer file.Close()
+}
