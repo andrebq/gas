@@ -18,6 +18,12 @@ func (n NotFound) Error() string {
 	return "The file " + string(n) + " wasn't found"
 }
 
+// Return true if the error represents a NotFound error
+func IsNotFound(err error) bool {
+	_, ok := err.(NotFound)
+	return ok
+}
+
 // Find the absolute path for the required file.
 //
 // The returned string is OS depended. If the desired file isn't present
